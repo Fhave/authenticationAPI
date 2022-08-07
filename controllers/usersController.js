@@ -175,6 +175,11 @@ exports.logoutUser = async (req, res) => {
 
 }
 
+exports.dashboard = async (req, res) => {
+
+}
+
+
 // Check User role
 exports.checkIfAdmin = (req, res, next) => {
   if (req.user.userRole !== "admin") {
@@ -200,9 +205,10 @@ exports.checkIfStaff = (req, res, next) => {
 // Forgot Password
 exports.forgotPassword =  async (req, res) => {
   try{
-    const {firstName, lastName, email} = await req.body;
+    const { firstName, lastName, email} = await req.body;
     const password = Math.random().toString(36).substr(2,8);
     let user = await User.findOne({email: email});
+    
     if(!user) 
       return res
         .status(400)
@@ -211,19 +217,25 @@ exports.forgotPassword =  async (req, res) => {
           message: 'Invalid credentials'
         });
 
-    const output = {
-      firstName,
-      lastName,
-      email,
-      password
-    }
-    
-    const newUser = new User({
-      firstName,
-      lastName,
-      email,
-      password
-    });
+        const _id = req.params._id;
+
+        const newUser = new User({
+          _id,
+          firstName,
+          lastName,
+          email,
+          password
+        });
+
+    const filter = { email: email, _id:req.params._id};
+    const options = { upsert: false };
+    const updateDoc = {
+      $set: {
+        newUser
+      },
+    };
+
+    const result = await User.updateOne(filter, updateDoc, options);
     
     bcrypt.genSalt(10, (err, salt) => {
       console.log(newUser);
@@ -283,7 +295,7 @@ exports.forgotPassword =  async (req, res) => {
 
     res.status(201).json({
       message: "Message sent",
-      output
+      
     })
   } catch (err) {
     console.log({message: err.message});

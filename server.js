@@ -18,7 +18,7 @@ const { seedStaff } = require('./seeders/staff');
 console.log(seedStaff());
 
 app.use(express.json({extended: false}));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   res.json({msg: 'ffffffff'})

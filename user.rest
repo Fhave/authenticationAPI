@@ -19,8 +19,8 @@ POST http://localhost:5000/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "omoruyiiykfkc@yahoo.com",
-  "password": "wwvwg3335555"
+  "email": "omosiyobo@gmail.com",
+  "password": "admin123"
 }
 
 ###
@@ -31,11 +31,20 @@ GET http://localhost:5000/api/auth/logout HTTP/1.1
 Content-Type: application/json
 
 ###
-PATCH http://localhost:5000/api/auth/reset
+PUT http://localhost:5000/api/auth/reset
 Content-Type: application/json
 
 { 
   "firstName": "Iyobosa", 
   "lastName": "Omoruyi",
   "email": "omoruyiiyobosa@yahoo.com"
+}
+
+###
+GET http://localhost:5000/api/auth/admin HTTP/1.1
+Content-Type: application/json
+
+{ 
+  "email": "omosiyobo@gmail.com",
+  "password": "admin123"
 }

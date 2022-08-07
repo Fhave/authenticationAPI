@@ -24,6 +24,14 @@ router.get('/api/auth', auth, usersController.getLoggedInUser);
 // Log out
 router.get('/api/auth/logout' , usersController.logoutUser);
 
-router.patch('/api/auth/reset', usersController.forgotPassword);
+// Forgot password
+router.put('/api/auth/reset', usersController.forgotPassword);
+
+// Protect routes
+router.get('/api/auth/admin', auth, usersController.checkIfAdmin, usersController.dashboard)
+
+router.get('/api/auth/manager', auth, usersController.checkIfManager, usersController.dashboard)
+
+router.get('/api/auth/staff', auth, usersController.checkIfStaff, usersController.dashboard)
 
 module.exports = router;

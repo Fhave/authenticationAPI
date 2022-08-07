@@ -83,17 +83,15 @@ exports.registerUser = async(req,res) => {
 // Public access
 exports.getLoggedInUser = async(req,res) => {
   try {
-    const user = await User.findOne(req.user.id).select("-password");
+    const user = await User.findOne(req.params._id).select("-password");
 
-    res.json({
-      statusCode: 200,
+    res.status(200).json({
       message: "User gotten successfully",
       user
     });
 
   } catch (err) {
     console.log(err.message);
-    res.status(500).json('Server error 4')
   }
 }
 
@@ -172,32 +170,53 @@ exports.loginUser = async (req,res) => {
 // Auth all users and get token
 // Public access
 exports.logoutUser = async (req, res) => {
-
+  try {
+    const {email} = req.body;
+    let user = await User.findOne({ email });
+    token = '';
+    return res.status(200).json({ message: " User logged out successfully"})
+  } catch (err) {
+    console.log(err.message);
+      res.status(500).json('Server Error 5');
+  }
 }
 
 exports.dashboard = async (req, res) => {
-
+  res.status(200).json('jkkkkk')
 }
-
 
 // Check User role
 exports.checkIfAdmin = (req, res, next) => {
-  if (req.user.userRole !== "admin") {
+  if (req.body.userRole !== "admin") {
     return res.status(401).json({message: "You are not an admin"})
   }
   return next()
 }
 
 exports.checkIfManager = (req, res, next) => {
-  if (req.user.userRole !== "manager") {
+  if (req.body.userRole !== "manager") {
     return res.status(401).json({message: "You are not a manager"})
   }
   return next()
 }
 
 exports.checkIfStaff = (req, res, next) => {
-  if (req.user.userRole !== "staff") {
+  if (req.body.userRole !== "staff") {
     return res.status(401).json({message: "You are not a staff"})
+  }
+  return next()
+}
+
+exports.checkIfUser = (req, res, next) => {
+  if (req.body.userRole !== "user") {
+    return res.status(401).json({message: "You are not a user"})
+  }
+  return next()
+}
+
+exports.checkIfUnassigned = (req, res, next) => {
+  if (req.body.userRole !== "staff") {
+    return res.status(401).json({message: "You have not been assigned"})
   }
   return next()
 }

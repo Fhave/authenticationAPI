@@ -10,8 +10,8 @@ Content-Type: application/json
 { 
   "firstName": "Iyobosa", 
   "lastName": "Omoruyi",
-  "email": "omoruyiiyobosa@yahoo.com",
-  "password": "rrcwg3335555"
+  "email": "kkjkjbk445h@yahoo.com",
+  "password": "rrch7t5555"
 }
 
 ###
@@ -19,16 +19,16 @@ POST http://localhost:5000/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 { 
-  "email": "omosiyobo@gmail.com",
-  "password": "admin123"
+  "email": "kkjklhhlh@yahoo.com",
+  "password": "rrcwg3335555"
 }
 
 ###
-GET http://localhost:5000/api/auth?Authorization=BearereyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJlZWNhZGM3ZmQ1NTE4ODJiMzIzZWFmIn0sImlhdCI6MTY1OTgzMDY1OCwiZXhwIjoxNjYwMTkwNjU4fQ.l9QDOvYeL4m-35wNrbPuMuJZfZCPlQTfC6z_bOPAfgY
+GET http://localhost:5000/api/auth
 
 ###
 GET http://localhost:5000/api/auth/logout HTTP/1.1
-Content-Type: application/json
+
 
 ###
 PUT http://localhost:5000/api/auth/reset
@@ -41,10 +41,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:5000/api/auth/admin HTTP/1.1
+POST http://localhost:5000/api/auth/admin HTTP/1.1
+x-access-token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJlZjljYjMwY2M5MmQ4OTg5Y2YyNTRjIn0sImlhdCI6MTY1OTg3NDkyOSwiZXhwIjoxNjYwMjM0OTI5fQ.wOJY8hphqdan8MNy07kaNuV2elvSu_5m_EVXswArl18
 Content-Type: application/json
-
-{ 
-  "email": "omosiyobo@gmail.com",
-  "password": "admin123"
-}

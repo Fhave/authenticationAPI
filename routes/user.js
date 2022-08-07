@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
-const auth = require('../middleware/auth')
+const { auth, checkIfAdmin, checkIfManager, checkIfStaff } = require('../middleware/auth')
 
 // import the router controller
 const usersController = require('../controllers/usersController');
@@ -17,21 +17,14 @@ router.post('/api/auth/login',
   ],
   usersController.loginUser
 );
+router.get('/api/auth/admin', auth, usersController.checkIfAdmin, usersController.dashboard);
 
-// Get logged in user
-router.get('/api/auth', auth, usersController.getLoggedInUser); 
+router.get('/api/auth/manager', auth, usersController.checkIfManager, usersController.dashboard);
 
-// Log out
-router.get('/api/auth/logout' , usersController.logoutUser);
+router.get('/api/auth/staff', auth, usersController.checkIfStaff, usersController.dashboard);
 
-// Forgot password
-router.put('/api/auth/reset', usersController.forgotPassword);
+router.get('/api/auth/user', auth, usersController.checkIfUser, usersController.dashboard);
 
-// Protect routes
-router.get('/api/auth/admin', auth, usersController.checkIfAdmin, usersController.dashboard)
-
-router.get('/api/auth/manager', auth, usersController.checkIfManager, usersController.dashboard)
-
-router.get('/api/auth/staff', auth, usersController.checkIfStaff, usersController.dashboard)
+router.get('/api/auth/unassigned', auth, usersController.checkIfUnassigned, usersController.dashboard);
 
 module.exports = router;
